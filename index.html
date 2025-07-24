@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Londo Host Panel</title>
+  <style>
+    body {
+      background: url('https://files.catbox.moe/pfidu0.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2 {
+      color: #b200ff;
+      text-shadow: 0 0 15px #b200ff;
+      font-size: 2em;
+    }
+
+    .block {
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 30px;
+      margin: 30px auto;
+      border-radius: 25px;
+      max-width: 700px;
+      box-shadow: 0 0 25px white;
+    }
+
+    button {
+      display: block;
+      width: 90%;
+      margin: 15px auto;
+      padding: 20px;
+      font-size: 20px;
+      background-color: #1a1a1a;
+      color: white;
+      border: 2px solid white;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 0 12px white;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    .produk-button {
+      font-size: 26px !important;
+      padding: 22px !important;
+      border: 2px solid #00cccc !important;
+      background: #101010 !important;
+      color: #66ffff !important;
+      transition: transform 0.2s;
+      animation: flash-glow 0.8s infinite alternate !important;
+    }
+
+    .produk-button:hover {
+      transform: scale(1.05);
+      background: #1a1a1a !important;
+    }
+
+    @keyframes flash-glow {
+      0%, 100% {
+        box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+      }
+      50% {
+        box-shadow: 0 0 30px #ffffff, 0 0 60px #ffffff;
+      }
+    }
+
+    .section {
+      display: none;
+    }
+
+    .active {
+      display: block;
+    }
+
+    #loading {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      color: #b200ff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 32px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      letter-spacing: 2px;
+    }
+
+    #loading span {
+      position: relative;
+    }
+
+    #loading span::after {
+      content: '';
+      position: absolute;
+      width: 120%;
+      height: 4px;
+      background: linear-gradient(90deg, #b200ff, #ff00ff, #b200ff);
+      bottom: -10px;
+      left: -10%;
+      animation: loading-bar 1.5s infinite linear;
+      border-radius: 3px;
+    }
+
+    @keyframes loading-bar {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+  </style>
+</head>
+<body onload="hideLoading()">
+  <!-- Suara Kilat -->
+  <audio id="lightningSound" src="https://files.catbox.moe/83i9bp.mp3" autoplay preload="auto" style="display:none;"></audio>
+
+  <!-- Suara Klik -->
+  <audio id="clickSound" src="https://www.fesliyanstudios.com/play-mp3/387" preload="auto"></audio>
+
+  <div id="loading"><span>LOADING KAKAK...</span></div>
+
+  <div id="intro" class="section active">
+    <div class="block">
+      <h1>SELAMAT DATANG DI LONDO HOST</h1>
+      <button onclick="playClick(); showSection('produk')">🔓 BELI SEKARANG</button>
+    </div>
+  </div>
+
+  <div id="produk" class="section">
+    <div class="block">
+      <h2>Pilih Produk</h2>
+      <button class="produk-button" onclick="playClick(); pilihProduk('Tangan Kanan Panel')">Tangan Kanan Panel</button>
+      <button class="produk-button" onclick="playClick(); pilihProduk('Panel Pterodactyl')">Panel Pterodactyl</button>
+      <button class="produk-button" onclick="playClick(); pilihProduk('Reseller Panel')">Reseller Panel</button>
+      <button class="produk-button" onclick="playClick(); pilihProduk('Admin Panel')">Admin Panel</button>
+      <button class="produk-button" onclick="playClick(); pilihProduk('Partner Panel')">Partner Panel</button>
+      <button class="produk-button" onclick="playClick(); pilihProduk('Owner Panel')">Owner Panel</button>
+      <button onclick="playClick(); window.open('https://whatsapp.com/channel/0029VbAAryM9cDDe4zxUPW1Z')">📢 TESTIMONI</button>
+    </div>
+  </div>
+
+  <div id="pembayaran" class="section">
+    <div class="block">
+      <h2>Metode Pembayaran</h2>
+      <button onclick="playClick(); showRekening('Seabank', '901858396888')">Seabank</button>
+      <button onclick="playClick(); showRekening('Dana', '087874872529')">Dana</button>
+      <button onclick="playClick(); showRekening('Gopay', '087780583192')">Gopay</button>
+      <button onclick="playClick(); window.open('https://drive.google.com/file/d/1K1xRsHPeOCXPluN11a0X0aYLHf8Dsfj3/view?usp=drivesdk')">QRIS ALLPAY</button><br><br>
+
+      <!-- Ubah tombol SUDAH TF menjadi auto WhatsApp -->
+      <button onclick="playClick(); window.open('https://wa.me/6281252609803?text=Halo+Kak,+saya+sudah+transfer.')">
+        ✅ SUDAH TF? PENCET INI
+      </button><br><br>
+
+      <button onclick="playClick(); showSection('produk')">← Kembali ke Produk</button>
+    </div>
+  </div>
+
+  <script>
+    function playClick() {
+      const clickSound = document.getElementById("clickSound");
+      clickSound.currentTime = 0;
+      clickSound.play();
+    }
+
+    function showSection(id) {
+      const sections = document.getElementsByClassName('section');
+      for (let i = 0; i < sections.length; i++) {
+        sections[i].classList.remove('active');
+      }
+      document.getElementById(id).classList.add('active');
+    }
+
+    function pilihProduk(namaProduk) {
+      alert("Produk " + namaProduk + " dipilih!");
+      showSection('pembayaran');
+    }
+
+    function showRekening(bank, nomor) {
+      const tempInput = document.createElement("input");
+      tempInput.value = nomor;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+      alert("Rekening " + bank + ": " + nomor + " telah disalin!");
+    }
+
+    function hideLoading() {
+      document.getElementById("loading").style.display = "none";
+    }
+  </script>
+</body>
+  </html>
