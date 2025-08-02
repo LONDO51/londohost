@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel Pterodactyl</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://files.catbox.moe/e1trgk.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+    }
+
+    h1, h2 {
+      text-shadow: 0 0 4px #ccc;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .loading {
+      font-size: 2em;
+      margin-top: 20%;
+      animation: shake 0.5s infinite;
+      font-weight: bold;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+
+    .btn, .copy-btn, .qris-btn, .back-btn {
+      display: block;
+      width: 80%;
+      max-width: 300px;
+      margin: 15px auto;
+      padding: 15px;
+      font-size: 18px;
+      background-color: #000;
+      color: white;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 0 8px #ccc;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover, .copy-btn:hover, .qris-btn:hover, .back-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #bbb;
+    }
+
+    .pay-label {
+      font-weight: bold;
+      margin-top: 20px;
+      font-size: 20px;
+      text-shadow: 0 0 3px #aaa;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<audio autoplay loop>
+  <source src="https://files.catbox.moe/jc5jks.mp3" type="audio/mpeg">
+  Browser tidak mendukung audio.
+</audio>
+
+<div id="loading" class="loading">LOADING...</div>
+
+<div id="main-content" class="hidden">
+  <h1>PRODUK PANEL PTERODACTYL</h1>
+  <button class="btn" onclick="goToPayment()">ADMIN PANEL PTERODACTYL</button>
+  <button class="btn" onclick="goToPayment()">PARTNER PANEL PTERODACTYL</button>
+  <button class="btn" onclick="goToPayment()">OWNER PANEL PTERODACTYL</button>
+  <button class="btn" onclick="goToPayment()">TANGAN KANAN PANEL PTERODACTYL</button>
+  <button class="btn" onclick="window.location.href='https://whatsapp.com/channel/0029VbAAryM9cDDe4zxUPW1Z'">TESTIMONI PANEL</button>
+</div>
+
+<!-- Halaman Pembayaran -->
+<div id="payment-page" class="hidden">
+  <h2>Silakan Lakukan Pembayaran</h2>
+
+  <div class="pay-label">DANA:</div>
+  <div id="dana">087874872529 - SANXXXXXX</div>
+  <button class="copy-btn" onclick="salin('dana')">Salin</button>
+
+  <div class="pay-label">SEABANK:</div>
+  <div id="seabank">901858396888 - SANXXXXXX</div>
+  <button class="copy-btn" onclick="salin('seabank')">Salin</button>
+
+  <div class="pay-label">QRIS AllPay:</div>
+  <div id="qris" style="display: none;">https://drive.google.com/file/d/1K1xRsHPeOCXPluN11a0X0aYLHf8Dsfj3/view?usp=drivesdk</div>
+  <button class="qris-btn" onclick="window.open(document.getElementById('qris').innerText, '_blank')">PENCET UNTUK QRIS</button>
+
+  <button class="btn" onclick="window.location.href='https://wa.me/6283121821603?text=Halo%20saya%20sudah%20transfer'">SAYA SUDAH TF</button>
+  <button class="back-btn" onclick="goBack()">BACK</button>
+</div>
+
+<script>
+  setTimeout(() => {
+    document.getElementById("loading").classList.add("hidden");
+    document.getElementById("main-content").classList.remove("hidden");
+  }, 10000);
+
+  function goToPayment() {
+    document.getElementById("main-content").classList.add("hidden");
+    document.getElementById("payment-page").classList.remove("hidden");
+  }
+
+  function goBack() {
+    document.getElementById("payment-page").classList.add("hidden");
+    document.getElementById("main-content").classList.remove("hidden");
+  }
+
+  function salin(id) {
+    const teks = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(teks).then(() => {
+      alert("Disalin: " + teks);
+    });
+  }
+</script>
+
+</body>
+</html>
