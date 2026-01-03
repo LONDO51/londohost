@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>LONDO HOST PANEL</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: url("https://files.catbox.moe/x3usdc.jpg") no-repeat center/cover;
+  color: white;
+}
+
+/* LOGIN */
+#login {
+  min-height: 100vh;
+  background: url("https://files.catbox.moe/i4qj3f.jpg") no-repeat center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  width: 320px;
+  background: rgba(0,0,0,.75);
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.login-box img {
+  width: 80px;
+  border-radius: 50%;
+}
+
+.login-box input, button, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.login-box button {
+  background: #00c3ff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* PANEL */
+#panel {
+  display: none;
+  padding: 20px;
+}
+
+.box {
+  max-width: 650px;
+  margin: auto;
+  background: rgba(0,0,0,.75);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+h2, h3 {
+  text-align: center;
+}
+
+hr {
+  margin: 20px 0;
+}
+
+pre {
+  background: black;
+  padding: 15px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage">
+  <div class="login-box">
+    <img src="https://files.catbox.moe/e2irdj.jpg">
+    <h3>SELAMAT DATANG DI<br>PTERODACTYL LONDO HOST</h3>
+
+    <input id="luser" placeholder="Username">
+    <input id="lpass" type="password" placeholder="Password">
+    <button onclick="login()">LOGIN</button>
+  </div>
+</div>
+
+<!-- PANEL -->
+<div id="panel">
+  <div class="box">
+
+    <h2 id="roleText"></h2>
+
+    <!-- OWNER SETTING -->
+    <div id="ownerBox" style="display:none">
+      <h3>⚙️ SETTING OWNER</h3>
+      <input id="domain" placeholder="Domain Panel">
+      <input id="plta" placeholder="PLTA">
+      <input id="pltc" placeholder="PLTC">
+      <button onclick="saveSetting()">SIMPAN</button>
+      <hr>
+    </div>
+
+    <!-- CREATE AKUN -->
+    <div id="accountBox">
+      <h3>👤 CREATE AKUN LOGIN</h3>
+      <input id="accName" placeholder="Nama">
+      <input id="accUser" placeholder="Username">
+      <input id="accPass" placeholder="Password">
+      <select id="accRole"></select>
+      <button onclick="createAccount()">BUAT AKUN</button>
+      <hr>
+    </div>
+
+    <!-- CREATE PANEL -->
+    <div>
+      <h3>🖥️ CREATE PANEL</h3>
+      <input id="pName" placeholder="Nama">
+      <input id="pEmail" placeholder="Email">
+      <input id="pUser" placeholder="Username Panel">
+      <select id="pRam">
+        <option>1 GB</option>
+        <option>2 GB</option>
+        <option>5 GB</option>
+        <option>10 GB</option>
+        <option>20 GB</option>
+        <option>50 GB</option>
+        <option>100 GB</option>
+        <option>UNLIMITED</option>
+      </select>
+      <button onclick="createPanel()">BUAT PANEL</button>
+    </div>
+
+    <pre id="output"></pre>
+    <button onclick="location.reload()">LOGOUT</button>
+
+  </div>
+</div>
+
+<script>
+/* ================= AKUN LOGIN ================= */
+const USERS = {
+  owner: { pass: "owner123", role: "owner" },
+  admin1: { pass: "admin123", role: "admin" },
+  reseller1: { pass: "reseller" , role: "reseller" }
+};
+
+let ROLE = "";
+
+/* ================= SETTING PANEL ================= */
+let SETTING = {
+  domain: "https://londohsotingboy.biz.id",
+  plta: "ptla_xxxxx",
+  pltc: "ptlc_xxxxx"
+};
+
+/* ================= LOGIN ================= */
+function login() {
+  const u = luser.value;
+  const p = lpass.value;
+
+  if (!USERS[u] || USERS[u].pass !== p) {
+    alert("Login gagal");
+    return;
+  }
+
+  ROLE = USERS[u].role;
+  login.style.display = "none";
+  panel.style.display = "block";
+  roleText.innerText = "LOGIN SEBAGAI " + ROLE.toUpperCase();
+
+  setupRole();
+}
+
+/* ================= ROLE SETUP ================= */
+function setupRole() {
+  accRole.innerHTML = "";
+
+  if (ROLE === "owner") {
+    ownerBox.style.display = "block";
+    accRole.innerHTML += `
+      <option value="admin">Admin</option>
+      <option value="reseller">Reseller</option>
+    `;
+    domain.value = SETTING.domain;
+    plta.value = SETTING.plta;
+    pltc.value = SETTING.pltc;
+  }
+
+  if (ROLE === "admin") {
+    accRole.innerHTML += `<option value="reseller">Reseller</option>`;
+  }
+
+  if (ROLE === "reseller") {
+    accountBox.style.display = "none";
+  }
+}
+
+/* ================= SAVE SETTING ================= */
+function saveSetting() {
+  SETTING.domain = domain.value;
+  SETTING.plta = plta.value;
+  SETTING.pltc = pltc.value;
+  alert("Setting disimpan");
+}
+
+/* ================= CREATE AKUN ================= */
+function createAccount() {
+  USERS[accUser.value] = {
+    pass: accPass.value,
+    role: accRole.value
+  };
+
+  output.textContent = `
+╭───「 DATA AKUN LOGIN 」───╮
+Nama : ${accName.value}
+Username : ${accUser.value}
+Password : ${accPass.value}
+Role : ${accRole.value.toUpperCase()}
+╰─────────────────────────╯
+`;
+}
+
+/* ================= CREATE PANEL ================= */
+function createPanel() {
+  const pw = Math.random().toString(36).slice(-8);
+
+  output.textContent = `
+╭───「 DATA PANEL PTERODACTYL 」───╮
+Nama : ${pName.value}
+Email : ${pEmail.value}
+Username : ${pUser.value}
+Password : ${pw}
+
+Domain : ${SETTING.domain}
+PLTA : ${SETTING.plta}
+PLTC : ${SETTING.pltc}
+RAM : ${pRam.value}
+╰───────────────────────────────╯
+`;
+}
+</script>
+
+</body>
+  </html>
