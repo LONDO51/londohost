@@ -1,363 +1,297 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buat Website Anda</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;500&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            font-family: 'Exo 2', sans-serif;
-            color: #fff;
-        }
-        
-        .container {
-            background: rgba(10, 10, 35, 0.8);
-            border-radius: 20px;
-            box-shadow: 0 0 25px rgba(91, 33, 182, 0.6);
-            padding: 40px 35px;
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-            border: 1px solid rgba(100, 65, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            z-index: -1;
-            background: linear-gradient(45deg, #ff0066, #6600ff, #00ccff, #ff0066);
-            background-size: 400% 400%;
-            animation: neon-border 6s linear infinite;
-            filter: blur(15px);
-            opacity: 0.7;
-            border-radius: 25px;
-        }
-        
-        @keyframes neon-border {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        .header {
-            margin-bottom: 30px;
-        }
-        
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: linear-gradient(to right, #00ccff, #6600ff, #ff0066);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(0, 204, 255, 0.5),
-                         0 0 20px rgba(0, 204, 255, 0.3),
-                         0 0 30px rgba(0, 204, 255, 0.2);
-            animation: neon-pulse 2s infinite alternate;
-        }
-        
-        @keyframes neon-pulse {
-            from {
-                text-shadow: 0 0 10px rgba(0, 204, 255, 0.5),
-                             0 0 20px rgba(0, 204, 255, 0.3),
-                             0 0 30px rgba(0, 204, 255, 0.2);
-            }
-            to {
-                text-shadow: 0 0 15px rgba(0, 204, 255, 0.7),
-                             0 0 25px rgba(0, 204, 255, 0.5),
-                             0 0 35px rgba(0, 204, 255, 0.3),
-                             0 0 45px rgba(0, 204, 255, 0.4);
-            }
-        }
-        
-        .description {
-            color: #a0a8f0;
-            margin-bottom: 30px;
-            font-size: 18px;
-            line-height: 1.6;
-            text-align: center;
-            font-weight: 300;
-            text-shadow: 0 0 5px rgba(160, 168, 240, 0.5);
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-            text-align: left;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: #00ccff;
-            font-weight: 500;
-            font-size: 18px;
-            font-family: 'Rajdhani', sans-serif;
-            text-shadow: 0 0 5px rgba(0, 204, 255, 0.5);
-        }
-        
-        input {
-            width: 100%;
-            padding: 16px;
-            border: 2px solid rgba(100, 65, 255, 0.5);
-            border-radius: 12px;
-            font-size: 16px;
-            transition: all 0.3s;
-            background-color: rgba(20, 15, 50, 0.7);
-            color: #fff;
-            font-family: 'Exo 2', sans-serif;
-            box-shadow: 0 0 10px rgba(100, 65, 255, 0.3);
-        }
-        
-        input:focus {
-            border-color: #00ccff;
-            outline: none;
-            background-color: rgba(25, 20, 60, 0.8);
-            box-shadow: 0 0 15px rgba(0, 204, 255, 0.5);
-        }
-        
-        input::placeholder {
-            color: #7b80aa;
-        }
-        
-        .divider {
-            height: 2px;
-            background: linear-gradient(to right, transparent, rgba(100, 65, 255, 0.5), transparent);
-            margin: 30px 0;
-        }
-        
-        .btn {
-            background: linear-gradient(to right, #6600ff, #ff0066);
-            color: white;
-            border: none;
-            padding: 18px;
-            font-size: 20px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            width: 100%;
-            box-shadow: 0 0 15px rgba(102, 0, 255, 0.5);
-            letter-spacing: 1px;
-            font-family: 'Orbitron', sans-serif;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: all 0.4s;
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(102, 0, 255, 0.7),
-                        0 0 40px rgba(255, 0, 102, 0.5);
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .status {
-            margin-top: 25px;
-            padding: 16px;
-            border-radius: 12px;
-            display: none;
-            font-size: 16px;
-            background: rgba(20, 15, 50, 0.7);
-            border: 1px solid rgba(100, 65, 255, 0.3);
-        }
-        
-        .success {
-            color: #00ffaa;
-            display: block;
-            text-shadow: 0 0 5px rgba(0, 255, 170, 0.5);
-            box-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
-        }
-        
-        .error {
-            color: #ff3366;
-            display: block;
-            text-shadow: 0 0 5px rgba(255, 51, 102, 0.5);
-            box-shadow: 0 0 10px rgba(255, 51, 102, 0.3);
-        }
-        
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .website-name {
-            font-weight: bold;
-            color: #00ccff;
-            text-shadow: 0 0 5px rgba(0, 204, 255, 0.7);
-        }
-        
-        .glow {
-            animation: glow 2s infinite alternate;
-        }
-        
-        @keyframes glow {
-            from {
-                box-shadow: 0 0 10px rgba(102, 0, 255, 0.5),
-                            0 0 20px rgba(102, 0, 255, 0.3);
-            }
-            to {
-                box-shadow: 0 0 15px rgba(102, 0, 255, 0.7),
-                            0 0 30px rgba(102, 0, 255, 0.5),
-                            0 0 40px rgba(102, 0, 255, 0.3);
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 30px 25px;
-            }
-            
-            h1 {
-                font-size: 28px;
-            }
-            
-            .description {
-                font-size: 16px;
-            }
-            
-            .btn {
-                padding: 16px;
-                font-size: 18px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<title>LONDO HOST PANEL</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: url("https://files.catbox.moe/x3usdc.jpg") no-repeat center/cover;
+  color: white;
+}
+
+/* ================= LOGIN ================= */
+#loginPage {
+  min-height: 100vh;
+  background: url("https://files.catbox.moe/i4qj3f.jpg") no-repeat center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-box {
+  width: 90%;
+  max-width: 420px;
+  background: rgba(0,0,0,0.8);
+  padding: 35px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.login-box img {
+  width: 100px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.login-box h2 {
+  margin-bottom: 25px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 16px;
+  margin: 12px 0;
+  font-size: 18px;
+  border-radius: 8px;
+  border: none;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: none;
+  background: #00d4ff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ================= PANEL ================= */
+#panelPage {
+  display: none;
+  padding: 20px;
+}
+
+.box {
+  max-width: 700px;
+  margin: auto;
+  background: rgba(0,0,0,0.8);
+  padding: 25px;
+  border-radius: 12px;
+}
+
+h2, h3 {
+  text-align: center;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 15px;
+}
+
+button {
+  background: #00ffae;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+pre {
+  background: black;
+  padding: 15px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  margin-top: 15px;
+}
+
+hr {
+  margin: 25px 0;
+}
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Buat Website Anda</h1>
-            <p class="description">Masukkan nama website yang ingin Anda buat, lalu klik tombol di bawah untuk membuat website baru secara otomatis.</p>
-        </div>
-        
-        <div class="form-group">
-            <label for="websiteName">Nama Website</label>
-            <input type="text" id="websiteName" placeholder="Masukkan nama website Anda" required>
-        </div>
-        
-        <div class="divider"></div>
-        
-        <button id="createBtn" class="btn">
-            Buat Website Sekarang
-        </button>
-        
-        <div id="statusMsg" class="status"></div>
+
+<!-- ================= LOGIN PAGE ================= -->
+<div id="loginPage">
+  <div class="login-box">
+    <img src="https://files.catbox.moe/e2irdj.jpg">
+    <h2>SELAMAT DATANG<br>PTERODACTYL LONDO HOST</h2>
+
+    <input id="loginUser" placeholder="Username">
+    <input id="loginPass" type="password" placeholder="Password">
+
+    <button type="button" onclick="doLogin()">LOGIN</button>
+  </div>
+</div>
+
+<!-- ================= PANEL PAGE ================= -->
+<div id="panelPage">
+  <div class="box">
+
+    <h2 id="roleText"></h2>
+
+    <!-- OWNER SETTING -->
+    <div id="ownerSetting" style="display:none">
+      <h3>⚙️ SETTING OWNER</h3>
+      <input id="setDomain" placeholder="Domain Panel">
+      <input id="setPLTA" placeholder="PLTA">
+      <input id="setPLTC" placeholder="PLTC">
+      <button onclick="saveSetting()">SIMPAN SETTING</button>
+      <hr>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const createBtn = document.getElementById('createBtn');
-            const statusMsg = document.getElementById('statusMsg');
-            const websiteNameInput = document.getElementById('websiteName');
-            
-            createBtn.addEventListener('click', function() {
-                // Validasi input
-                const websiteName = websiteNameInput.value.trim();
-                if (!websiteName) {
-                    statusMsg.textContent = 'Silakan masukkan nama website terlebih dahulu!';
-                    statusMsg.className = 'status error';
-                    return;
-                }
-                
-                // Tampilkan status loading
-                createBtn.disabled = true;
-                createBtn.innerHTML = '<span class="loading"></span> Sedang membuat website...';
-                statusMsg.className = 'status';
-                
-                // Ganti URL_API_DISINI dengan API yang Anda miliki
-                const apiUrl = 'CwUlrwP3E4mSYpRwBFcp3baS';
-                
-                // Data yang akan dikirim ke API
-                const requestData = {
-                    name: websiteName,
-                    framework: 'static'
-                };
-                
-                // Panggil API
-                fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer CwUlrwP3E4mSYpRwBFcp3baS' // Ganti dengan token akses Anda
-                    },
-                    body: JSON.stringify(requestData)
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Tampilkan pesan sukses
-                    statusMsg.innerHTML = `Website <span class="website-name">${websiteName}</span> berhasil dibuat!<br>URL: <a href="${data.url || 'https://' + websiteName + '.example.com'}" target="_blank" style="color: #00ccff; text-shadow: 0 0 5px rgba(0, 204, 255, 0.7);">${data.url || 'https://' + websiteName + '.example.com'}</a>`;
-                    statusMsg.classList.add('success');
-                    
-                    // Reset tombol
-                    createBtn.disabled = false;
-                    createBtn.innerHTML = 'Buat Website Sekarang';
-                })
-                .catch(error => {
-                    // Tampilkan pesan error
-                    statusMsg.textContent = 'Terjadi kesalahan: ' + error.message;
-                    statusMsg.classList.add('error');
-                    
-                    // Reset tombol
-                    createBtn.disabled = false;
-                    createBtn.innerHTML = 'Buat Website Sekarang';
-                });
-            });
-        });
-    </script>
+    <!-- CREATE AKUN -->
+    <div id="accountBox">
+      <h3>👤 CREATE AKUN LOGIN</h3>
+      <input id="accName" placeholder="Nama">
+      <input id="accUser" placeholder="Username">
+      <input id="accPass" placeholder="Password">
+      <select id="accRole"></select>
+      <button onclick="createAccount()">BUAT AKUN</button>
+      <hr>
+    </div>
+
+    <!-- CREATE PANEL -->
+    <div>
+      <h3>🖥️ CREATE PANEL</h3>
+      <input id="pName" placeholder="Nama">
+      <input id="pEmail" placeholder="Email">
+      <input id="pUser" placeholder="Username Panel">
+      <select id="pRam">
+        <option>1 GB</option>
+        <option>2 GB</option>
+        <option>5 GB</option>
+        <option>10 GB</option>
+        <option>20 GB</option>
+        <option>50 GB</option>
+        <option>100 GB</option>
+        <option>UNLIMITED</option>
+      </select>
+      <button onclick="createPanel()">BUAT PANEL</button>
+    </div>
+
+    <pre id="output"></pre>
+    <button onclick="logout()">LOGOUT</button>
+
+  </div>
+</div>
+
+<script>
+/* ================= DATABASE LOGIN ================= */
+const USERS = {
+  owner: { pass: "owner123", role: "owner" },
+  admin1: { pass: "admin123", role: "admin" },
+  reseller1: { pass: "reseller123", role: "reseller" }
+};
+
+let CURRENT_ROLE = "";
+
+/* ================= SETTING PANEL ================= */
+let PANEL = {
+  domain: "https://londohsotingboy.biz.id",
+  plta: "ptla_xxxxx",
+  pltc: "ptlc_xxxxx"
+};
+
+/* ================= LOGIN ================= */
+function doLogin() {
+  const u = document.getElementById("loginUser").value.trim();
+  const p = document.getElementById("loginPass").value.trim();
+
+  if (!USERS[u] || USERS[u].pass !== p) {
+    alert("Username atau password salah");
+    return;
+  }
+
+  CURRENT_ROLE = USERS[u].role;
+
+  document.getElementById("loginPage").style.display = "none";
+  document.getElementById("panelPage").style.display = "block";
+
+  document.getElementById("roleText").innerText =
+    "LOGIN SEBAGAI " + CURRENT_ROLE.toUpperCase();
+
+  setupRole();
+}
+
+/* ================= ROLE SETUP ================= */
+function setupRole() {
+  const roleSelect = document.getElementById("accRole");
+
+  roleSelect.innerHTML = "";
+
+  if (CURRENT_ROLE === "owner") {
+    ownerSetting.style.display = "block";
+    roleSelect.innerHTML += `
+      <option value="admin">Admin</option>
+      <option value="reseller">Reseller</option>
+    `;
+    setDomain.value = PANEL.domain;
+    setPLTA.value = PANEL.plta;
+    setPLTC.value = PANEL.pltc;
+  }
+
+  if (CURRENT_ROLE === "admin") {
+    roleSelect.innerHTML += `<option value="reseller">Reseller</option>`;
+  }
+
+  if (CURRENT_ROLE === "reseller") {
+    document.getElementById("accountBox").style.display = "none";
+  }
+}
+
+/* ================= SAVE SETTING ================= */
+function saveSetting() {
+  PANEL.domain = setDomain.value;
+  PANEL.plta = setPLTA.value;
+  PANEL.pltc = setPLTC.value;
+  alert("Setting berhasil disimpan");
+}
+
+/* ================= CREATE AKUN ================= */
+function createAccount() {
+  USERS[accUser.value] = {
+    pass: accPass.value,
+    role: accRole.value
+  };
+
+  output.textContent = `
+╭───「 DATA AKUN LOGIN 」───╮
+Nama : ${accName.value}
+Username : ${accUser.value}
+Password : ${accPass.value}
+Role : ${accRole.value.toUpperCase()}
+╰─────────────────────────╯
+`;
+}
+
+/* ================= CREATE PANEL ================= */
+function createPanel() {
+  const pw = Math.random().toString(36).slice(-8);
+
+  output.textContent = `
+╭───「 DATA PANEL PTERODACTYL 」───╮
+Nama : ${pName.value}
+Email : ${pEmail.value}
+Username : ${pUser.value}
+Password : ${pw}
+
+Domain : ${PANEL.domain}
+PLTA : ${PANEL.plta}
+PLTC : ${PANEL.pltc}
+RAM : ${pRam.value}
+╰───────────────────────────────╯
+`;
+}
+
+/* ================= LOGOUT ================= */
+function logout() {
+  location.reload();
+}
+</script>
+
 </body>
 </html>
